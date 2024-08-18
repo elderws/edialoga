@@ -5,31 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.overclock.edialoga.R
 
 class NotificationsFragment : Fragment() {
 
-    private val notificationsViewModel: NotificationsViewModel by viewModels()
+    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: GrupoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        recyclerView = root.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewGrupos)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         notificationsViewModel.grupos.observe(viewLifecycleOwner, Observer { grupos ->
-            val adapter = GrupoAdapter(grupos)
+            adapter = GrupoAdapter(grupos) { grupo ->
+                // Handle item click
+            }
             recyclerView.adapter = adapter
         })
     }
