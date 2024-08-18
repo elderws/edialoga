@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">edialoga</string>
+    <string name="title_home">Atendimentos</string>
+    <string name="title_dashboard">Aguard. Atendimento</string>
+    <string name="title_notifications">Grupos</string>
+    <string name="title_recents">Recentes</string>
+</resources>
