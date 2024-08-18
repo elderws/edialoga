@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class RecentsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Todos os Chats Recents"
+        value = "Todos os Chats recentes"
     }
     val text: LiveData<String> = _text
 }
